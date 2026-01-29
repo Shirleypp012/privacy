@@ -12,7 +12,10 @@ import {
   Fingerprint,
   Server,
   Search,
-  Box
+  Box,
+  Container,
+  Key,
+  FileBadge
 } from 'lucide-react';
 import { NavItem, PageRoute, DataAsset, WorkflowNode, AuditLog } from './types';
 
@@ -65,11 +68,11 @@ export const APP_NAVIGATION: NavItem[] = [
 
 // --- Mock Data: Assets ---
 export const MOCK_ASSETS: DataAsset[] = [
-  { id: 'DA-001', name: 'Retail_Transaction_Q3 (零售交易)', type: '结构化 (Structured)', provider: '商业银行 A', sensitivity: 'L3 (机密)', rows: 4500000, status: '在线 (Active)', lastUpdate: '2023-10-24 10:00' },
-  { id: 'DA-002', name: 'User_Behavior_Logs (行为日志)', type: '非结构化 (Unstructured)', provider: '电商平台', sensitivity: 'L2 (内部)', rows: 12000000, status: '同步中 (Syncing)', lastUpdate: '2023-10-24 11:15' },
-  { id: 'DA-003', name: 'Credit_Risk_Blacklist (黑名单)', type: '结构化 (Structured)', provider: '金融科技联盟', sensitivity: 'L4 (绝密)', rows: 85000, status: '在线 (Active)', lastUpdate: '2023-10-23 09:30' },
-  { id: 'DA-004', name: 'Marketing_Graph_V2 (营销图谱)', type: '图数据 (Graph)', provider: '电信运营商', sensitivity: 'L3 (机密)', rows: 2500000, status: '离线 (Offline)', lastUpdate: '2023-10-20 16:45' },
-  { id: 'DA-005', name: 'Healthcare_Records_Anon (医疗)', type: '结构化 (Structured)', provider: '三甲医院集群', sensitivity: 'L4 (绝密)', rows: 500000, status: '在线 (Active)', lastUpdate: '2023-10-24 08:00' },
+  { id: 'DA-2026-001', name: 'Retail_Transaction_Q4 (零售交易)', type: '结构化 (Structured)', provider: '商业银行 A', sensitivity: 'L3 (机密)', rows: 4500000, status: '在线 (Active)', lastUpdate: '2026-01-14 10:00' },
+  { id: 'DA-2026-002', name: 'User_Behavior_Logs (行为日志)', type: '非结构化 (Unstructured)', provider: '电商平台', sensitivity: 'L2 (内部)', rows: 12000000, status: '同步中 (Syncing)', lastUpdate: '2026-01-14 11:15' },
+  { id: 'DA-2026-003', name: 'Credit_Risk_Blacklist (黑名单)', type: '结构化 (Structured)', provider: '金融科技联盟', sensitivity: 'L4 (绝密)', rows: 85000, status: '在线 (Active)', lastUpdate: '2026-01-13 09:30' },
+  { id: 'DA-2025-004', name: 'Marketing_Graph_V2 (营销图谱)', type: '图数据 (Graph)', provider: '电信运营商', sensitivity: 'L3 (机密)', rows: 2500000, status: '离线 (Offline)', lastUpdate: '2025-12-28 16:45' },
+  { id: 'DA-2026-005', name: 'Healthcare_Records_Anon (医疗)', type: '结构化 (Structured)', provider: '三甲医院集群', sensitivity: 'L4 (绝密)', rows: 500000, status: '在线 (Active)', lastUpdate: '2026-01-14 08:00' },
 ];
 
 // --- Mock Data: Workflow Nodes (Federated Learning) ---
@@ -83,9 +86,9 @@ export const INITIAL_NODES: WorkflowNode[] = [
 
 // --- Mock Data: Audit Logs ---
 export const MOCK_AUDIT_LOGS: AuditLog[] = [
-  { id: 'LOG-9921', timestamp: '10:24:12', action: '启动 PSI 求交协议', user: 'System_Admin', entity: 'Task #8821', status: 'Success', hash: '0x7f...a92' },
-  { id: 'LOG-9920', timestamp: '10:23:45', action: '请求访问数据资产', user: 'Analyst_J', entity: 'Retail_Trans_Q3', status: 'Success', hash: '0x3a...b11' },
-  { id: 'LOG-9919', timestamp: '10:15:00', action: '检查隐私预算消耗', user: 'Policy_Engine', entity: 'Query #102', status: 'Warning', hash: '0x1c...d44' },
-  { id: 'LOG-9918', timestamp: '09:55:22', action: '联邦模型参数聚合', user: 'Arbiter_Node', entity: 'FL_Job_Risk_V1', status: 'Success', hash: '0xe2...f55' },
-  { id: 'LOG-9917', timestamp: '09:40:10', action: '导出计算结果数据', user: 'User_Unknown', entity: 'Dataset_X', status: 'Denied', hash: '0x99...001' },
+  { id: 'LOG-26-9921', timestamp: '2026-01-15 10:24:12', action: '启动 PSI 求交协议', user: 'System_Admin', entity: 'Task #8821', status: 'Success', hash: '0x7f...a92' },
+  { id: 'LOG-26-9920', timestamp: '2026-01-15 10:23:45', action: '请求访问数据资产', user: 'Analyst_J', entity: 'Retail_Trans_Q3', status: 'Success', hash: '0x3a...b11' },
+  { id: 'LOG-26-9919', timestamp: '2026-01-15 10:15:00', action: '检查隐私预算消耗', user: 'Policy_Engine', entity: 'Query #102', status: 'Warning', hash: '0x1c...d44' },
+  { id: 'LOG-26-9918', timestamp: '2026-01-15 09:55:22', action: '联邦模型参数聚合', user: 'Arbiter_Node', entity: 'FL_Job_Risk_V1', status: 'Success', hash: '0xe2...f55' },
+  { id: 'LOG-26-9917', timestamp: '2026-01-15 09:40:10', action: '导出计算结果数据', user: 'User_Unknown', entity: 'Dataset_X', status: 'Denied', hash: '0x99...001' },
 ];
