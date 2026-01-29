@@ -1,0 +1,5 @@
+{
+  "name": "隐私盾计算平台 (PrivacyShield)",
+  "description": "企业级隐私增强计算与数据资产安全协同平台。支持联邦学习建模、MPC协议及实时合规审计。",
+  "requestFramePermissions": []
+}
