@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="dark">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,24 +7,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
-        darkMode: 'class',
         theme: {
           extend: {
             colors: {
-              slate: {
-                850: '#151e2e',
-                900: '#0f172a',
-                950: '#020617',
+              gray: {
+                50: '#f9fafb',
+                100: '#f3f4f6',
+                200: '#e5e7eb',
+                800: '#1f2937',
+                900: '#111827',
               },
               primary: {
-                400: '#38bdf8', // Sky 400
-                500: '#0ea5e9', // Sky 500
-                600: '#0284c7', // Sky 600
-                900: '#0c4a6e', // Sky 900
-              },
-              accent: {
-                400: '#22d3ee', // Cyan 400
-                500: '#06b6d4', // Cyan 500
+                50: '#f0f9ff',
+                100: '#e0f2fe',
+                500: '#0ea5e9',
+                600: '#0284c7',
+                700: '#0369a1',
               }
             },
             fontFamily: {
@@ -36,24 +34,27 @@
       }
     </script>
     <style>
-      /* Custom Scrollbar for that "High-End System" feel */
+      /* Custom Scrollbar for Corporate Light Theme */
       ::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #0f172a;
+        background: #f1f5f9;
       }
       ::-webkit-scrollbar-thumb {
-        background: #334155;
-        border-radius: 3px;
+        background: #cbd5e1;
+        border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #475569;
+        background: #94a3b8;
       }
       body {
-        background-color: #020617;
-        color: #e2e8f0;
+        background-color: #f3f4f6; /* gray-100 */
+        color: #1f2937; /* gray-800 */
+      }
+      .custom-shadow {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
       }
     </style>
   <script type="importmap">
@@ -70,6 +71,5 @@
 </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
   </body>
 </html>

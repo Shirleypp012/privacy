@@ -36,12 +36,12 @@ export default function App() {
         return <PIR />;
       default:
         return (
-          <div className="flex flex-col items-center justify-center h-full text-slate-500 animate-fade-in">
-             <div className="text-6xl font-thin mb-4">404</div>
+          <div className="flex flex-col items-center justify-center h-full text-gray-500 animate-fade-in bg-gray-50">
+             <div className="text-6xl font-thin mb-4 text-gray-300">404</div>
              <p>功能模块建设中... (Module under construction)</p>
              <button 
                onClick={() => setActiveRoute(PageRoute.DASHBOARD)} 
-               className="mt-6 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 transition-colors"
+               className="mt-6 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
              >
                返回仪表盘 (Return)
              </button>

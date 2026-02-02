@@ -24,17 +24,17 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeRoute, onNavigat
                      APP_NAVIGATION.flatMap(n => n.subItems || []).find(n => n.path === activeRoute);
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-slate-950 text-slate-200 font-sans selection:bg-blue-500/30">
+    <div className="flex h-screen w-full overflow-hidden bg-gray-50 text-gray-900 font-sans selection:bg-blue-100">
       
       {/* Sidebar */}
-      <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-slate-900 border-r border-slate-800 transition-all duration-300 flex flex-col z-20`}>
+      <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col z-20 shadow-sm`}>
         {/* Logo Area */}
-        <div className="h-16 flex items-center px-6 border-b border-slate-800">
-           <div className="w-8 h-8 rounded bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/20">
+        <div className="h-16 flex items-center px-6 border-b border-gray-100">
+           <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/20">
              <span className="font-bold text-white text-lg">P</span>
            </div>
            {sidebarOpen && (
-             <span className="ml-3 font-bold text-lg tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+             <span className="ml-3 font-bold text-lg tracking-tight text-gray-800">
                隐私盾 PrivacyShield
              </span>
            )}
@@ -53,21 +53,21 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeRoute, onNavigat
                    onClick={() => item.subItems ? toggleMenu(item.id) : item.path && onNavigate(item.path as PageRoute)}
                    className={`
                      flex items-center px-3 py-2.5 rounded-lg cursor-pointer transition-colors group relative
-                     ${isActive ? 'bg-blue-600/10 text-blue-400' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}
+                     ${isActive ? 'bg-blue-50 text-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}
                    `}
                  >
-                   <Icon size={20} className={isActive ? 'text-blue-400' : 'text-slate-500 group-hover:text-white'} />
+                   <Icon size={20} className={isActive ? 'text-blue-600' : 'text-gray-400 group-hover:text-gray-600'} />
                    {sidebarOpen && (
                      <>
                        <span className="ml-3 text-sm font-medium flex-1 truncate">{item.label}</span>
                        {item.subItems && (
-                         <ChevronRight size={14} className={`transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
+                         <ChevronRight size={14} className={`text-gray-400 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`} />
                        )}
                      </>
                    )}
                    {/* Tooltip for collapsed state */}
                    {!sidebarOpen && (
-                     <div className="absolute left-full ml-2 px-2 py-1 bg-slate-800 text-xs text-white rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 border border-slate-700">
+                     <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-xs text-white rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 border border-gray-700 shadow-lg">
                        {item.label}
                      </div>
                    )}
@@ -75,14 +75,14 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeRoute, onNavigat
 
                  {/* Submenu */}
                  {sidebarOpen && item.subItems && isExpanded && (
-                   <div className="ml-9 mt-1 space-y-1 border-l border-slate-800 pl-2">
+                   <div className="ml-9 mt-1 space-y-1 border-l border-gray-200 pl-2">
                      {item.subItems.map(sub => (
                        <div 
                          key={sub.id}
                          onClick={() => sub.path && onNavigate(sub.path as PageRoute)}
                          className={`
                            px-3 py-2 text-xs rounded-md cursor-pointer transition-colors truncate
-                           ${activeRoute === sub.path ? 'text-blue-400 bg-blue-600/5' : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/50'}
+                           ${activeRoute === sub.path ? 'text-blue-700 bg-blue-50 font-medium' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'}
                          `}
                        >
                          {sub.label}
@@ -97,48 +97,48 @@ export const Layout: React.FC<LayoutProps> = ({ children, activeRoute, onNavigat
       </aside>
 
       {/* Main Content Wrapper */}
-      <div className="flex-1 flex flex-col min-w-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950">
+      <div className="flex-1 flex flex-col min-w-0 bg-gray-50">
         
         {/* Header */}
-        <header className="h-16 border-b border-slate-800 flex justify-between items-center px-6 bg-slate-950/80 backdrop-blur z-10 sticky top-0">
+        <header className="h-16 border-b border-gray-200 flex justify-between items-center px-6 bg-white z-10 sticky top-0 shadow-sm">
            <div className="flex items-center gap-4">
-             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-slate-400 hover:text-white transition-colors">
+             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-gray-500 hover:text-gray-700 transition-colors">
                <Menu size={20} />
              </button>
              {/* Breadcrumb mock */}
-             <div className="text-sm text-slate-500 flex items-center gap-2">
+             <div className="text-sm text-gray-500 flex items-center gap-2">
                <span>平台 (Platform)</span>
-               <span className="text-slate-700">/</span>
-               <span className="text-slate-200">{currentNav?.label || activeRoute}</span>
+               <span className="text-gray-300">/</span>
+               <span className="text-gray-900 font-medium">{currentNav?.label || activeRoute}</span>
              </div>
            </div>
 
            <div className="flex items-center gap-4">
-              <div className="hidden md:flex items-center bg-slate-900 border border-slate-800 rounded-full px-4 py-1.5 w-64">
-                 <Search size={14} className="text-slate-500 mr-2" />
-                 <input type="text" placeholder="全局搜索 (Search)..." className="bg-transparent border-none focus:outline-none text-xs text-white w-full" />
+              <div className="hidden md:flex items-center bg-gray-100 border border-gray-200 rounded-full px-4 py-1.5 w-64 focus-within:ring-2 focus-within:ring-blue-100 focus-within:border-blue-300 transition-all">
+                 <Search size={14} className="text-gray-400 mr-2" />
+                 <input type="text" placeholder="全局搜索 (Search)..." className="bg-transparent border-none focus:outline-none text-xs text-gray-700 w-full placeholder:text-gray-400" />
               </div>
               
-              <button className="relative p-2 text-slate-400 hover:text-white transition-colors">
+              <button className="relative p-2 text-gray-400 hover:text-gray-600 transition-colors">
                  <Bell size={20} />
-                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full border border-slate-950"></span>
+                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full border border-white"></span>
               </button>
               
-              <div className="flex items-center gap-3 pl-4 border-l border-slate-800 cursor-pointer">
-                 <div className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300">
+              <div className="flex items-center gap-3 pl-4 border-l border-gray-200 cursor-pointer hover:bg-gray-50 p-1 rounded transition-colors">
+                 <div className="w-8 h-8 rounded-full bg-gray-200 border border-gray-300 flex items-center justify-center text-gray-600">
                    <User size={16} />
                  </div>
                  <div className="hidden md:block text-xs">
-                   <div className="text-white font-medium">Admin User</div>
-                   <div className="text-slate-500">安全部 (Security Dept.)</div>
+                   <div className="text-gray-900 font-medium">Admin User</div>
+                   <div className="text-gray-500">安全部 (Security Dept.)</div>
                  </div>
-                 <ChevronDown size={14} className="text-slate-500" />
+                 <ChevronDown size={14} className="text-gray-400" />
               </div>
            </div>
         </header>
 
         {/* Main Viewport */}
-        <main className="flex-1 overflow-auto relative">
+        <main className="flex-1 overflow-auto relative p-6">
           {children}
         </main>
 
