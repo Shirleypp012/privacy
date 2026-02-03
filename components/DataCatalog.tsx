@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { 
   FolderTree, Search, Filter, Shield, Lock, Eye, CheckCircle, 
   MoreHorizontal, Database, FileText, Activity, Clock, Share2, Layers, Globe,
   Loader2, ArrowRight
 } from 'lucide-react';
+import { GlobalContext } from '../App';
+import { PageRoute } from '../types';
 
 const CATEGORIES = [
   { id: 'internal', label: '内部数据 (Internal)', icon: Database, children: ['投研数据', '风控数据', '客户数据', '运营日志'] },
@@ -25,6 +27,8 @@ export const DataCatalog: React.FC = () => {
   const [selectedAsset, setSelectedAsset] = useState<any>(null);
   const [requestStatus, setRequestStatus] = useState<'idle' | 'loading' | 'success'>('idle');
   const [computeStatus, setComputeStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+  
+  const { addTask, addAuditLog } = useContext(GlobalContext);
 
   // Reset status when asset changes
   useEffect(() => {
@@ -36,6 +40,17 @@ export const DataCatalog: React.FC = () => {
       setRequestStatus('loading');
       setTimeout(() => {
           setRequestStatus('success');
+          // Add audit log
+          addAuditLog({
+            id: `LOG-${Date.now()}`,
+            timestamp: new Date().toLocaleTimeString(),
+            action: `申请访问数据资产: ${selectedAsset.name}`,
+            user: 'Admin_User',
+            entity: selectedAsset.id,
+            status: 'Pending',
+            hash: '0x...',
+            type: 'info'
+          });
       }, 1500);
   };
 
@@ -43,6 +58,31 @@ export const DataCatalog: React.FC = () => {
       setComputeStatus('loading');
       setTimeout(() => {
           setComputeStatus('success');
+          
+          // 1. Add new Task
+          const newTaskId = `T-${Math.floor(Math.random() * 10000) + 2026}`;
+          addTask({
+            id: newTaskId,
+            name: `协同计算 - ${selectedAsset.name.substring(0, 15)}...`,
+            type: selectedAsset.usage[0] === 'FL' ? '联邦学习' : selectedAsset.usage[0] === 'MPC' ? 'MPC' : 'TEE',
+            status: 'Waiting',
+            progress: 0,
+            nodes: 3,
+            route: PageRoute.FEDERATED_LEARNING
+          });
+
+          // 2. Add Audit Log
+          addAuditLog({
+            id: `LOG-${Date.now()}`,
+            timestamp: new Date().toLocaleTimeString(),
+            action: `发起协同计算任务 ${newTaskId}`,
+            user: 'Admin_User',
+            entity: selectedAsset.id,
+            status: 'Success',
+            hash: '0xinit...',
+            type: 'success'
+          });
+
       }, 2000);
   };
 

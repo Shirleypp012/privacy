@@ -20,12 +20,22 @@ export interface MetricCardProps {
 export interface DataAsset {
   id: string;
   name: string;
-  type: string; // Changed to string to support localized values
+  type: string; 
   provider: string;
-  sensitivity: string; // Changed to string
+  sensitivity: string; 
   rows: number;
-  status: string; // Changed to string
+  status: string; 
   lastUpdate: string;
+}
+
+export interface Task {
+  id: string;
+  name: string;
+  type: string;
+  status: 'Running' | 'Completed' | 'Waiting' | 'Failed';
+  progress: number;
+  nodes: number;
+  route: string;
 }
 
 export interface WorkflowNode {
@@ -43,8 +53,9 @@ export interface AuditLog {
   action: string;
   user: string;
   entity: string;
-  status: string; // Changed to string
+  status: string; 
   hash: string;
+  type?: 'info' | 'success' | 'warn' | 'error'; // Added for UI styling
 }
 
 export enum PageRoute {
