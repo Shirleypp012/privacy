@@ -214,7 +214,7 @@ const TrainingStep = () => {
     const interval = setInterval(() => {
       setEpoch(p => (p < 50 ? p + 1 : p));
       setLogs(prev => [`[INFO] Epoch ${prev.length + 1} completed. Loss: ${(Math.random()*0.5).toFixed(4)}`, ...prev].slice(0, 6));
-    }, 800);
+    }, 100); // Speed up for demo: 100ms per epoch = 5 seconds total for 50 epochs
     return () => clearInterval(interval);
   }, []);
 

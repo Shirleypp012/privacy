@@ -126,7 +126,7 @@ const SystemTopology = () => {
            <div className="absolute -bottom-1 -right-1 bg-emerald-500 text-white text-[10px] px-1.5 py-0.5 rounded-full border border-white font-bold shadow-sm">HOST</div>
         </div>
         <div className="mt-3 text-center">
-           <div className="text-sm font-bold text-gray-800">Bank Node</div>
+           <div className="text-sm font-bold text-gray-800">银行节点 (Bank)</div>
            <div className="text-[10px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100 flex items-center gap-1 justify-center">
              <Activity size={8} className="animate-spin" /> Training
            </div>
@@ -144,7 +144,7 @@ const SystemTopology = () => {
            <div className="absolute -bottom-1 -right-1 bg-blue-500 text-white text-[10px] px-1.5 py-0.5 rounded-full border border-white font-bold shadow-sm">GUEST</div>
         </div>
         <div className="mt-3 text-center">
-           <div className="text-sm font-bold text-gray-800">FinTech Node</div>
+           <div className="text-sm font-bold text-gray-800">金融科技节点 (FinTech)</div>
            <div className="text-[10px] text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-100 flex items-center gap-1 justify-center">
              <Zap size={8} /> Syncing
            </div>
