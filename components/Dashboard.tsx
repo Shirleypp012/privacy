@@ -3,7 +3,7 @@ import {
   PieChart, Pie, Cell, ResponsiveContainer
 } from 'recharts';
 import { ShieldCheck, Activity, Database, Lock, AlertTriangle, Network, Server, Globe, Zap, ArrowUpRight, ArrowDownRight, Layers, Cpu } from 'lucide-react';
-import { MetricCardProps, PageRoute, AuditLog } from '../types';
+import { MetricCardProps, PageRoute } from '../types';
 import { GlobalContext } from '../App';
 
 // --- Enterprise Grade Topology Visualization ---
@@ -173,41 +173,11 @@ const SystemTopology = () => {
   );
 };
 
-// --- Log Item Component for Reusability ---
-const AuditLogItem: React.FC<{ log: AuditLog }> = ({ log }) => (
-  <div className="flex gap-3 items-start p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-gray-300 hover:bg-white transition-all shadow-sm">
-      <div className={`mt-1 w-1.5 h-1.5 rounded-full shrink-0 ${
-        log.type === 'warn' ? 'bg-amber-500' : 
-        log.type === 'error' ? 'bg-rose-500' :
-        log.type === 'success' ? 'bg-emerald-500' : 'bg-blue-500'
-      }`}></div>
-      <div>
-        <div className="flex justify-between items-center w-full gap-2">
-            <div className="text-xs text-gray-400 font-mono mb-0.5">{log.timestamp}</div>
-            <span className="text-[10px] text-gray-300">{log.user}</span>
-        </div>
-        <div className="text-sm text-gray-700 leading-snug">{log.action}</div>
-      </div>
-  </div>
-);
-
 export const Dashboard: React.FC = () => {
   const { tasks, auditLogs } = useContext(GlobalContext);
 
   return (
     <div className="flex flex-col gap-6 animate-fade-in">
-      <style>{`
-        @keyframes scroll-vertical {
-          0% { transform: translateY(0); }
-          100% { transform: translateY(-50%); }
-        }
-        .animate-scroll-vertical {
-          animation: scroll-vertical 40s linear infinite;
-        }
-        .animate-scroll-vertical:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
       
       {/* Middle Section */}
       <div className="grid grid-cols-12 gap-6">
@@ -327,9 +297,9 @@ export const Dashboard: React.FC = () => {
               </div>
            </div>
 
-           {/* Real-time Audit Feed (Auto Scrolling) */}
-           <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col flex-1 min-h-[400px] shadow-sm overflow-hidden relative">
-              <div className="flex justify-between items-center mb-4 z-10 bg-white pb-2 border-b border-gray-50">
+           {/* Real-time Audit Feed */}
+           <div className="bg-white border border-gray-200 rounded-xl p-5 flex flex-col flex-1 min-h-[400px] shadow-sm">
+              <div className="flex justify-between items-center mb-4">
                  <h3 className="font-bold text-gray-800 flex items-center gap-2">
                    <ShieldCheck size={18} className="text-emerald-600" />
                    全链路可信审计 (Live Audit)
@@ -340,31 +310,25 @@ export const Dashboard: React.FC = () => {
                  </span>
               </div>
               
-              {/* Scrolling Container */}
-              <div className="flex-1 relative overflow-hidden mask-gradient-y">
-                 {/* Top fade gradient */}
-                 <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none"></div>
-                 
-                 {/* Moving Wrapper */}
-                 <div className="absolute top-0 w-full animate-scroll-vertical space-y-3 cursor-pointer">
-                    {/* Render Logs (Original) */}
-                    {auditLogs.map((log) => (
-                      <AuditLogItem key={log.id} log={log} />
-                    ))}
-                    {/* Render Logs (Duplicate for Seamless Loop) */}
-                    {auditLogs.map((log) => (
-                      <AuditLogItem key={`${log.id}-dup`} log={log} />
-                    ))}
-                 </div>
-                 
-                 {/* Bottom fade gradient */}
-                 <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none"></div>
+              <div className="flex-1 overflow-y-auto pr-1 space-y-3 custom-scrollbar flex flex-col-reverse">
+                 {/* Note: Rendering in reverse order to have latest at top visually if we were using column-reverse, but standard is top-down. 
+                     We actually just map the logs. The Context adds new ones to the FRONT of the array. */}
+                 {auditLogs.map((log) => (
+                   <div key={log.id} className="flex gap-3 items-start p-3 bg-gray-50 rounded-lg border border-gray-100 hover:border-gray-200 transition-all animate-fade-in">
+                      <div className={`mt-1 w-1.5 h-1.5 rounded-full shrink-0 ${
+                        log.type === 'warn' ? 'bg-amber-500' : 
+                        log.type === 'error' ? 'bg-rose-500' :
+                        log.type === 'success' ? 'bg-emerald-500' : 'bg-blue-500'
+                      }`}></div>
+                      <div>
+                        <div className="text-xs text-gray-400 font-mono mb-0.5">{log.timestamp}</div>
+                        <div className="text-sm text-gray-700 leading-snug">{log.action}</div>
+                      </div>
+                   </div>
+                 ))}
               </div>
-
-              <div className="text-center pt-2 mt-auto border-t border-gray-100 z-10 bg-white">
-                 <span className="text-xs text-gray-400 animate-pulse flex items-center justify-center gap-1">
-                   <Zap size={10} /> 正在同步区块链存证...
-                 </span>
+              <div className="text-center pt-2 mt-auto border-t border-gray-100">
+                 <span className="text-xs text-gray-400 animate-pulse">正在同步区块链存证...</span>
               </div>
            </div>
 

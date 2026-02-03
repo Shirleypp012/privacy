@@ -12,7 +12,7 @@ import { PIR } from './components/PIR';
 import { PageRoute, Task, AuditLog } from './types';
 
 // --- Global Context Definition ---
-export interface AppContextType {
+interface AppContextType {
   tasks: Task[];
   auditLogs: AuditLog[];
   addTask: (task: Task) => void;
