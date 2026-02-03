@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { 
   Users, Filter, Calculator, FileCheck, EyeOff, 
-  ArrowRight, Download, CheckCircle, AlertTriangle
+  ArrowRight, Download, CheckCircle, AlertTriangle, 
+  FileText, ShieldCheck, X
 } from 'lucide-react';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell 
@@ -135,7 +136,17 @@ const ResultStep = () => {
         </div>
 
         <div className="flex-1 bg-white border border-gray-200 rounded-xl p-6 flex flex-col shadow-sm">
-           <h3 className="font-bold text-gray-800 mb-4">用户画像分布 (Age Distribution)</h3>
+           <div className="flex justify-between items-center mb-4">
+              <h3 className="font-bold text-gray-800">用户画像分布 (Age Distribution)</h3>
+              <div className="flex gap-3">
+                  <button className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 text-blue-600 rounded border border-blue-200 text-xs font-medium hover:bg-blue-100 transition-colors transition-transform active:scale-95">
+                      <FileText size={14}/> 导出结果 (CSV)
+                  </button>
+                  <button className="flex items-center gap-2 px-3 py-1.5 bg-purple-50 text-purple-600 rounded border border-purple-200 text-xs font-medium hover:bg-purple-100 transition-colors transition-transform active:scale-95">
+                      <ShieldCheck size={14}/> 下载隐私证明 (ZK-Proof)
+                  </button>
+              </div>
+           </div>
            <div className="flex-1 min-h-0">
              <ResponsiveContainer width="100%" height="100%">
                <BarChart data={data}>
@@ -158,9 +169,23 @@ const ResultStep = () => {
 
 export const MPC: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  const handleNext = () => {
+     if (currentStep === 4) {
+        setShowSuccessModal(true);
+     } else {
+        setCurrentStep(c => c + 1);
+     }
+  };
+
+  const resetFlow = () => {
+     setShowSuccessModal(false);
+     setCurrentStep(1);
+  };
 
   return (
-    <div className="h-full flex flex-col bg-gray-50 animate-fade-in">
+    <div className="h-full flex flex-col bg-gray-50 animate-fade-in relative">
        {/* Header */}
        <div className="h-20 border-b border-gray-200 bg-white/80 backdrop-blur px-8 flex items-center justify-between shrink-0 z-10">
           <div>
@@ -197,10 +222,26 @@ export const MPC: React.FC = () => {
                上一步
             </button>
           )}
-          <button onClick={() => setCurrentStep(c => Math.min(c+1, 4))} className="px-8 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded font-medium shadow-lg shadow-purple-500/20 transition-colors flex items-center gap-2">
+          <button onClick={handleNext} className="px-8 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded font-medium shadow-lg shadow-purple-500/20 transition-colors flex items-center gap-2">
              {currentStep === 4 ? '完成 (Finish)' : '下一步 (Next)'} <ArrowRight size={16} />
           </button>
        </div>
+
+       {/* Success Modal */}
+       {showSuccessModal && (
+          <div className="absolute inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center animate-scale-in">
+              <div className="bg-white border border-gray-200 rounded-xl p-8 max-w-sm text-center shadow-2xl relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-blue-500"></div>
+                  <button onClick={resetFlow} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><X size={20}/></button>
+                  <div className="w-16 h-16 bg-purple-50 rounded-full flex items-center justify-center mx-auto mb-6 text-purple-500 border border-purple-100">
+                      <CheckCircle size={32} />
+                  </div>
+                  <h2 className="text-xl font-bold text-gray-800 mb-2">任务完成！</h2>
+                  <p className="text-gray-500 text-sm mb-6">MPC 多方计算已结束，结果已加密存储并分发给参与方。</p>
+                  <button onClick={resetFlow} className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded font-medium">关闭并返回</button>
+              </div>
+          </div>
+       )}
     </div>
   );
 };
